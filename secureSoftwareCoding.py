@@ -74,7 +74,7 @@ edit = input("Type 'add', 'update', or 'delete' to select function: ")
 
 with open ("pwdatabase.txt", "a+") as reader:
     reader.seek(0)
-    line = reader.readlines()
+    lines = reader.readlines()
     if edit == "add":
         dataAdd = input("Enter what you would like to add: ")
         reader.write(dataAdd)
@@ -82,7 +82,15 @@ with open ("pwdatabase.txt", "a+") as reader:
 
     elif edit == "delete":
         dataDelete = input("Enter what you would like to delete: ")
+        for dd in lines:
+            if dd.strip("\n") != dataDelete:
+                reader.write(dd)
 
     elif edit == "update":
-        dataUpdate = input("Enter what you would like to update: ")
+        dataOld = input("Enter the old credential you would like to update: ")
+        dataReplace = input("Enter the new updated credential: ")
+        for du in lines:
+            # if du.strip("\n") == dataOld:
+            reader.write(du.replace(dataOld, dataReplace))
+
 reader.close()
